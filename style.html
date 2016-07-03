@@ -2,12 +2,120 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>canvas</title>
 </head>
 <body>
+<canvas id="mycanvas" width="800" height="600">您的浏览器不支持canvas，请更换浏览器</canvas>
+<script>
+    var mycanvas = document.getElementById("mycanvas");
+    var con = mycanvas.getContext("2d");
 
-<p>董子鹏</p>
-<p>第一次</p>
 
+
+
+    function pan(){
+        var d = new Date();
+        //时
+        var h = d.getHours();
+        var m = d.getMinutes();
+        var s = d.getSeconds();
+
+//				alert(h);
+
+        //表盘
+        con.beginPath();
+        con.arc(0,0,200,0,2*Math.PI,true);
+        con.stroke();
+
+
+        for(var i=0;i<60;i++){
+            con.rotate(2*Math.PI/60);
+            con.beginPath();
+            con.moveTo(190,0);
+            con.lineTo(200,0);
+            con.stroke();
+        }
+
+
+        con.lineWidth = 6;
+        for(var i=0;i<12;i++){
+            con.rotate(2*Math.PI/12);
+            con.beginPath();
+            con.moveTo(180,0);
+            con.lineTo(200,0);
+            con.stroke();
+        }
+
+
+
+        //时针
+        con.lineWidth = 9;
+        con.strokeStyle = "brown";
+        con.beginPath();
+
+        con.save();
+        con.rotate(h*2*Math.PI/12+m*2*Math.PI/60/12)
+        con.moveTo(0,-110);
+        con.lineTo(0,20);
+        con.stroke();
+        con.restore()
+
+        //分针
+        con.lineWidth = 6;
+        con.strokeStyle = "brown";
+        con.save();
+        con.rotate(m*2*Math.PI/60+s*2*Math.PI/60/60)
+        con.beginPath();
+        con.moveTo(0,28);
+        con.lineTo(0,-140);
+        con.stroke();
+        con.restore()
+
+
+        //秒针
+        //分针
+        con.lineWidth = 3;
+        con.strokeStyle = "#77f";
+        con.save();
+        con.rotate(s*2*Math.PI/60)
+        con.beginPath();
+        con.moveTo(0,30);
+        con.lineTo(0,-160);
+        con.stroke();
+        con.restore()
+
+
+        con.fillStyle = "gold";
+        con.strokeStyle = "red";
+        con.beginPath();
+        con.arc(0,0,8,0,2*Math.PI,true);
+        con.stroke();
+        con.fill()
+
+
+        con.font = "bold 20px 微软雅黑";
+        con.textAlign = "center";
+        con.textBaseline = "middle";
+
+
+        for(var i=1;i<13;i++){
+            con.fillText(i,Math.cos(2*Math.PI/12*(i-3))*160,Math.sin(2*Math.PI/12*(i-3))*160);
+        }
+    }
+
+
+
+
+    setInterval(function(){
+        con.clearRect(0,0,mycanvas.width,mycanvas.height);
+        con.save();
+        con.translate(mycanvas.width/2,mycanvas.height/2);
+        pan();
+        con.restore();
+    },1000/30)
+
+
+
+</script>
 </body>
 </html>
