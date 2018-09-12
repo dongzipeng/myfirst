@@ -1,0 +1,41 @@
+    $(document).ready(function() {
+        jQuery.jqtab = function(tabtit,tab_conbox,shijian) {
+            $(tab_conbox).find("li").hide();
+            $(tabtit).find("li:first").addClass("cer-act").show();
+            $(tab_conbox).find("li:first").show();
+         //$(tab_conbox).children("li:first").show();
+
+            $(tabtit).find("li").bind(shijian,function(){
+                $(this).addClass("cer-act").siblings("li").removeClass("cer-act");
+                var activeindex = $(tabtit).find("li").index(this);
+                $(tab_conbox).children().eq(activeindex).show().siblings().hide();
+                return false;
+            });
+
+        };
+
+
+        $.jqtab(".cer-wenle",".cer-wenre","mouseenter/click");
+
+    });
+
+
+// 高级选择卡 自己写的
+    $(function () {
+        jQuery.jqtab = function(box_top,box_bottom,shi) {
+        //
+            $(box_bottom).children("li").hide();
+            $(box_top).children("li:first").addClass("active").show();
+            $(box_bottom).children("li:first").show();
+
+            $(box_top).children("li").on(shi,function () {
+                $(this).addClass("active").siblings("li").removeClass("active");
+                var _index = $(tabtit).children("li").index(this);
+                $(box_bottom).children().eq(_index).show().siblings().hide();
+                return false;
+            })
+
+        };
+   $.jqtab(".box_top",".box_bottom","mouseenter/click");
+    });
+ 

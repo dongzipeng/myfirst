@@ -1,0 +1,29 @@
+<div class="box">
+	<img src="20150213142143589.png" class="zoom">
+</div>
+
+.box {
+    /* 可见视觉区域 */
+    width: 480px; height: 250px;
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.zoom {
+    /* 缩放的元素 */
+    width: 480px; height: 250px;
+    vertical-align: middle;    
+    -webkit-transition: -webkit-transform .2s;
+    transition: transform .2s;
+}
+.box:hover .zoom {
+    /* hover放大 */
+    -webkit-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    transform: scale(1.05);
+    zoom: 1.05;
+}
+:root .box:hover .zoom {
+    zoom: 1;
+}

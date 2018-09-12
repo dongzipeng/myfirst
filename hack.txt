@@ -1,0 +1,29 @@
+
+
+
+
+hack 写方法1：
+
+ 	只在IE6下生效
+ 	<!--[if IE 6]>
+ 	    这段文字只在IE6浏览器显示
+ 	<![endif]-->
+
+
+
+hack 写方法2：前缀
+
+    " - " 是IE6专有的hack
+    " + " 是IE6 IE7专有的hack
+    " \9 " IE6/IE7/IE8/IE9/IE10都生效
+    " \0 " IE8/IE9/IE10都生效，是IE8/9/10的hack
+    " \9\0 " 只对IE9/IE10生效，是IE9/10的hack
+
+    ie8
+     " \0 " IE8/IE9/IE10都生效，是IE8/9/10的hack
+      " \9\0 " 只对IE9/IE10生效，是IE9/10的hack
+
+    *+html #class { /* IE7 only*/
+    	color:green;
+    }
+

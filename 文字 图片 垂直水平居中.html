@@ -1,0 +1,159 @@
+<style>
+
+    /*
+
+        问题：失效的   原来vertical-align属性只对行内元素有效，对块内元素无效！
+
+    */
+
+
+    /*   单文本水平垂直居中  利用行高  */
+    .box1{
+        width: 200px;
+        height: 100px;
+        text-align: center;
+        border:1px solid red;
+        line-height: 100px;
+    }
+
+    /*
+        多文本水平垂直居中  父元素要  display: table-cell;     vertical-align: middle;
+        文字外边加一个包裹的标签 ，设置的是 display: inline-block;
+    */
+    .box2{
+        display: table-cell;
+        width: 300px;
+        height: 100px;
+        text-align: center;
+        border:1px solid red;
+        vertical-align: middle;
+    }
+    .span{
+        display: inline-block;
+        text-align: left;
+    }
+
+    /*
+        图片的垂直居中的效果
+        方法1：   line-height: ;
+
+    */
+
+    .box3{
+        overflow: hidden;
+    }
+    .box3 li {
+        float: left;
+        width: 300px;
+        height: 300px;
+        text-align: center;
+        line-height: 300px;
+        border:1px solid red;
+    }
+    .box3 a img{
+
+        width: 100px;
+        height: 80px;
+        display: inline-block;
+        vertical-align: middle;
+
+    }
+
+    /*
+           图片的垂直居中的效果
+           方法2：定位
+
+     */
+    .box4{
+        width: 300px;
+        height: 300px;
+        text-align: center;
+        border:1px solid red;
+        position: relative;
+    }
+    .img4{
+        width: 100px;
+        height: 80px;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -40px;
+        margin-left: -50px;
+    }
+
+    /*
+         图片的垂直居中的效果
+         方法3： 使用空白图片实现垂直对齐
+
+
+   */
+    .box5{
+        overflow: hidden;
+    }
+    .box5 li{
+        width: 200px;
+        height: 120px;
+        border:1px solid red;
+        margin: 10px;
+        /*
+            注意：   font-size:0; 必修
+         */
+        font-size:0;
+        text-align: center;
+        float: left;
+    }
+    .box5 li a{
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+    .box5 li .box5_img{
+        vertical-align: middle;
+        width: 100px;
+        height: 80px;
+
+    }
+    .box5 li .box5_img5{
+        height: 100%;
+        width: 1px;
+        vertical-align: middle;
+        border:none;
+    }
+
+
+</style>
+<div class="box">
+
+    <div class="box1">单文本水平垂直居中</div><br>
+    <div class="box2">
+        <span class="span">多文本水平垂直居中多文本水平垂直居中多文本水平</span>
+    </div>
+
+    <ul class="box3">
+        <li><a href=""><img src="images/1.jpg"></a></li>
+        <li><a href=""><img src="images/2.jpg"></a></li>
+    </ul>
+
+    <div class="box4">
+        <img src="images/1.jpg" class="img4">
+    </div>
+
+    <ul class="box5">
+        <li><a href="">
+            <img class="box5_img" src="images/1.jpg" />
+            <img class="box5_img5" src="https://www.zhangxinxu.com/study/image/pixel.gif" />
+        </a>
+        </li>
+        <li><a href="">
+            <img class="box5_img" src="images/1.jpg" />
+            <img class="box5_img5" src="https://www.zhangxinxu.com/study/image/pixel.gif" />
+        </a>
+        </li>
+    </ul>
+
+
+</div>
+
+<script>
+
+</script>

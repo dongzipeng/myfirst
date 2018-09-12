@@ -1,0 +1,71 @@
+<style></style>
+<div class="box1">
+    这里的文件少
+</div>
+<div class="box2">
+    这里的文件多这里的文件多这里的文件多这里的文件多这里的文件多这里的文件多
+</div>
+<script>
+    /****
+     *  基础：  复制、剪切、粘贴事件： copy  cut paste
+                var box1 = document.getElementsByClassName("box1")[0];
+                box1.oncopy = function (event) {
+                    var  event = event || window.event;
+                    console.log("s")
+                 }
+                所以的内容我们要从事件 获取数据
+                (event.clipboardData || window.clipboardData); // 兼容处理
+                事件的对象有   getData()、setData()
+                    getData() 就一个参数  getData("text")  获取数据的格式 一般在粘贴中使用
+                    setData() 就二个参数  setData("text","设置的内容位置")  复制的内容 + 自己写的内容
+
+                被复制/剪切的数据 ==  window.getSelection(0).toString()
+                document.body.oncopy = e => { console.log('被复制的数据:', window.getSelection(0).toString());}
+
+                粘贴内容 == clipboardData.getData('text') 一般在粘贴中使用
+                 document.body.onpaste = e => {
+                    let clipboardData = (e.clipboardData || window.clipboardData); // 兼容处理
+                    console.log('要粘贴的数据', clipboardData.getData('text'));
+                }
+
+                添加自己内容 clipboardData.setData("text","xxxxxxxxxxxxxx") 一般在粘贴中使用
+                 document.body.onpaste = e => {
+                    let clipboardData = (e.clipboardData || window.clipboardData); // 兼容处理
+                    console.log('要粘贴的数据', clipboardData.setData('text',"这里面是自己添加的内容 这里面是自己添加的内容"));
+                }
+     *
+     * *****/
+
+ 
+
+    // 掘金这里不是全局监听，应该只是监听文章的dom范围内。  ie不支持  不清楚为什么
+    document.body.oncopy = function (event) {
+       var event = event || window.event;
+        // 取消默认的复制事件
+        if (event.preventDefaulfault) {
+            event.preventDefaulfault()
+        } else {
+            event.returnValue = false; //ie
+        }
+        var textFont;
+        var copyFont = window.getSelection(0).toString(); // 被复制的文字 等下插入
+        // 防知乎掘金 复制一两个字则不添加版权信息 超过一定长度的文字 就添加版权信息
+        if (copyFont.length > 10) {
+            textFont = copyFont + '\n' +
+                '作者：OBKoro1\n' +
+                '链接：https://juejin.im/user/58714f0eb123db4a2eb95372/posts\n' +
+                '来源：掘金\n' +
+                '著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。';
+        } else {
+            textFont = copyFont; // 没超过十个字 则采用被复制的内容。
+        }
+        if (event.clipboardData) {
+            return event.clipboardData.setData('text', textFont); // 将信息写入粘贴板
+        } else {
+            // 兼容IE
+            return window.clipboardData.setData("text", textFont);
+        }
+    }
+
+
+</script>

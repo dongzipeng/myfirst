@@ -1,0 +1,9 @@
+.register_form_img{
+
+    margin-top: 0px \9;  //这里是对ie8设置
+
+}
+
+:root .register_form_img {
+    margin-top: 19px;
+}

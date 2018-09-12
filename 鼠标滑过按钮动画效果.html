@@ -1,0 +1,356 @@
+
+<style>
+    .box{
+        width: 80px;
+        height: 30px;
+        border:1px solid #ccc;
+        border-radius: 5px;
+        margin: 20px;
+        text-align: center;
+        line-height: 30px;
+        cursor: pointer;
+        /* 动画的时间 */
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+    .box2{
+        /*
+            .box2 与 .box3原理一样  左到右   上到下
+            利用 css3的线性渐变的原理 一开始  background-size: 0% 100%;
+            hover的时候在 background-size: 100% 100%;
+        */
+        background: -webkit-linear-gradient(left, #a3f7bf, #a3f7bf) no-repeat;
+        background: linear-gradient(to right, #a3f7bf, #a3f7bf) no-repeat;
+        background-size: 0% 100%;
+    }
+    .box2:hover{
+        background-size: 100% 100%;
+    }
+    .box3{
+        background: -webkit-linear-gradient( #a3f7bf, #a3f7bf) no-repeat;
+        background: linear-gradient( #a3f7bf, #a3f7bf) no-repeat;
+        background-size: 100% 0%;
+    }
+    .box3:hover{
+        background-size: 100% 100%;
+    }
+
+    /*
+          .box4 与 .box5原理一样  右到左   下到上   推荐
+           利用为元素 定位的原理，控制top left right bottom位置
+           hover的时候在 变化为元素的width height;
+
+      */
+
+    .box4{
+        position: relative;
+        overflow: hidden;
+    }
+    .box4:before{
+        content: '';
+        position: absolute;
+        top: 0;
+        /*right: -5px;*/
+        right: 0;
+        width: 0;
+        height: 100%;
+       background: #FFD460;
+        z-index: -1;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+    .box4:hover:hover:before{
+        width: 100%;
+    }
+    .box5{
+        position: relative;
+        overflow: hidden;
+    }
+    .box5:before{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        /*right: -5px;*/
+        left: 0;
+        width: 100%;
+        height: 0;
+        background: #FFD460;
+        z-index: -1;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+    .box5:hover:hover:before{
+        height: 100%;
+    }
+
+    /*
+        .box4 与 .box5原理一样  左到右   上到下 推荐
+         利用为元素 定位的原理，控制top left right bottom位置
+         hover的时候在 变化为元素的width height;
+
+    */
+
+    .box6{
+        position: relative;
+        overflow: hidden;
+    }
+    .box6:after{
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 100%;
+        left:0;
+        top: 0;
+        background: red;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+        z-index: -1;
+    }
+    .box6:hover:hover:after{
+        width: 100%;
+    }
+    .box7{
+        position: relative;
+        overflow: hidden;
+    }
+    .box7:after{
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 0;
+        left:0;
+        top: 0;
+        background: red;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+        z-index: -1;
+    }
+    .box7:hover:hover:after{
+        height: 100%;
+    }
+    /*
+          .box8 与 .box9原理一样  斜左到斜右    推荐
+           利用为元素 定位的原理，控制top left right bottom位置
+            然后变形一下  相应的 left tight
+           hover的时候在 变化为元素的width height;
+
+      */
+
+    .box8{
+        position: relative;
+        overflow: hidden;
+    }
+    .box8:before{
+        content: '';
+        background: #FFD478;
+        -webkit-transform: skew(45deg, 0);
+        transform: skew(45deg, 0);
+        /*width: 100%;*/  /*打开就明白了*/
+        width: 0%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        /*left: 0;*/   /*打开就明白了*/
+        left: -15px;
+        z-index: -1;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+    }
+    .box8:hover:before {
+        width: 150%;
+    }
+
+    .box9{
+        position: relative;
+        overflow: hidden;
+    }
+    .box9:before{
+        content: '';
+        position: absolute;
+        /*width: 100%;*/
+        width: 0;
+        height: 100%;
+        -webkit-transform: skew(45deg, 0);
+        transform: skew(45deg, 0);
+        z-index: -1;
+        -webkit-transition: all .5s;
+        transition: all .5s;
+        background:#FFD478 ;
+        top: 0;
+        right:-15px ;
+
+    }
+    .box9:hover:before{
+        width: 150%;
+    }
+
+
+    /*
+        .box10 与 .bo11原理一样  两边向中间 中间向两边  左右   推荐
+         利用为元素 定位的原理，控制top left right bottom位置
+
+         hover的时候在 变化为元素的width height;
+
+    */
+
+
+    .box10{
+        position: relative;
+        overflow: hidden;
+    }
+    .box10:after,.box10:before{
+        content: '';
+        height: 100%;
+        width: 0;
+        position: absolute;
+        z-index: -1;
+        background:#A6ACEC ;
+        top: 0;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+    }
+    .box10:after{
+        left: 0;
+    }
+    .box10:before{
+        right: 0;
+    }
+    .box10:hover:before,
+    .box10:hover:after {
+        width: 50%;
+    }
+
+    .box11{
+        position: relative;
+        overflow: hidden;
+    }
+    .box11:after,.box11:before{
+        content: '';
+        height: 100%;
+        width: 0;
+        position: absolute;
+        z-index: -1;
+        background:#A6ACEC ;
+        top: 0;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+    }
+    .box11:after{
+        left: 50%;
+    }
+    .box11:before{
+        right: 50%;
+    }
+    .box11:hover:before,
+    .box11:hover:after {
+        width: 50%;
+    }
+
+    /*
+      .box12 与 .bo13原理一样  两边向中间 中间向两边   上下  推荐
+       利用为元素 定位的原理，控制top left right bottom位置
+
+       hover的时候在 变化为元素的width height;
+
+  */
+    .box12{
+        position: relative;
+        overflow: hidden;
+    }
+    .box12:after,.box12:before{
+        content: '';
+        width: 100%;
+        height: 0;
+        position: absolute;
+        z-index: -1;
+          left: 0;
+        background: #A6ACEC;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+    }
+    .box12:after{
+        top: 50%;
+    }
+    .box12:before{
+        bottom: 50%;
+    }
+    .box12:hover:after,.box12:hover:before{
+        height: 50%;
+    }
+    .box13{
+        position: relative;
+        overflow: hidden;
+    }
+    .box13:after,.box13:before{
+        content: '';
+        width: 100%;
+        height: 0;
+        position: absolute;
+        z-index: -1;
+        left: 0;
+        background: #A6ACEC;
+        -webkit-transition: all 0.25s;
+        transition: all 0.25s;
+    }
+    .box13:after{
+        top: 0%;
+    }
+    .box13:before{
+        bottom: 0%;
+    }
+    .box13:hover:after,.box13:hover:before{
+        height: 50%;
+    }
+
+    .box14{
+        position: relative;
+        overflow: hidden;
+    }
+    .box14:after,.box14:before{
+        content: "";
+        position: absolute;
+        z-index: -1;
+        height: 100%;
+        width: 0;
+        top: 0;
+        background-color: #ACE7EF;
+        -webkit-transition: all .4s;
+        transition: all .4s;
+    }
+    .box14:before {
+        left: -30px;
+        -webkit-transform: skew(-45deg, 0);
+        transform: skew(-45deg, 0);
+    }
+
+    .box14:after {
+        right: -30px;
+        -webkit-transform: skew(-45deg, 0);
+        transform: skew(-45deg, 0);
+    }
+    .box14:hover:before,
+    .box14:hover:after {
+        width: 100%;
+    }
+
+
+</style>
+<div class="box1">
+    <div class="box box2">box2</div>
+    <div class="box box3">box3</div>
+    <div class="box box4">box4</div>
+    <div class="box box5">box5</div>
+    <div class="box box6">box6</div>
+    <div class="box box7">box7</div>
+    <div class="box box8">box8</div>
+    <div class="box box9">box9</div>
+    <div class="box box10">box10</div>
+    <div class="box box11">box11</div>
+    <div class="box box12">box12</div>
+    <div class="box box13">box13</div>
+    <div class="box box14">box14</div>
+    <div class="box box15">box15</div>
+</div>
+<script>
+
+</script>

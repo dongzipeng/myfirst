@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+
+京东价格查询：
+<input type="checkbox" name="item" value="1361302288"> 手机钢化膜 
+<input type="checkbox" name="item" value="1727620"> 冷暖空调 
+<input type="checkbox" name="item" value="10391292601"> 小风扇 
+<input type="checkbox" name="item" value="10505339283"> 蛋黄酥
+<input type="checkbox" name="item" value="10723181840"> 围巾
+
+
+
+<input id="skus" type="text" style="width: 60%"/>
+<button id="search">查询</button>
+
+<div id="result" style="display: none; margin-top: 20px;">
+    <div>查询结果：</div>
+    <div id="result_txt"></div>
+</div>
+
+<script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+	var $checkbox = $("input[name='item']");
+	$checkbox.click(function(){
+		var checkedArr = [];
+		$checkbox.filter(":checked").each(function(){
+			checkedArr.push($(this).attr("value"));
+			$("#skus").val(checkedArr.join(','));  // 用，分割  返回值为一个字符串
+		});
+	});
+
+    $("#search").click(function () {
+        var value = $("#skus").val();
+        var arr = value.split(",");  // 用这个，分割 并返回数组
+        $.each(arr, function (i, j) {
+            arr[i] = "J_" + j;
+        });
+        var skuids = arr.join(',');   // 用，分割  返回值为一个字符串
+        $.ajax({
+            url: 'http://p.3.cn/prices/mgets',
+            data: {
+                skuIds: skuids
+            },
+            dataType: "jsonp",
+            success: function (data) {
+                var result = '';
+                console.log(data)
+                $.each(data, function (i, j) {
+                    result += "<div>商品id：" + j.id + " 价格：" + j.p + "</div>";
+                });
+
+                $("#result").show();
+                $("#result_txt").html(result);
+            }
+        });
+    });
+
+
+//
+
+
+</script>
+
+</body>
+</html>

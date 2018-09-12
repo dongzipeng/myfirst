@@ -1,0 +1,25 @@
+<style>
+    #input{
+        /*display: none;*/
+        /*
+            重点 ： 这里主要是 input 的 隐藏问题  不能 display: none  只能   opacity: 0; 在用定位给移动它的位置
+         */
+        opacity: 0;
+    }
+</style>
+<div class="box1">
+    <p id="text">这里是复制的文字 这里是复制的文字</p>
+    <input id="input" />
+    <button id="btn">按按</button>
+</div>
+<script>
+    var btn = document.getElementById("btn");
+    btn.onclick = function () {
+        var text = document.getElementById("text").innerText;
+        var input = document.getElementById("input");
+        input.value = text; // 修改文本框的内容
+        input.select(); // 选中文本
+        document.execCommand("copy"); // 执行浏览器复制命令
+        alert("复制成功");
+    }
+</script>

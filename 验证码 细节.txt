@@ -1,0 +1,4 @@
+
+验证码 输入框 加一个 autocomplete="off"  因为上一次的输入码 和 下一次的不一样了
+
+<input type="text" autocomplete="off" />

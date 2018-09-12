@@ -1,0 +1,37 @@
+这里没有应用 图片的 background-attachment:fixed  ios不支持这个属性 .
+
+应用的是   position: fixed; 这个兼容性比较好
+
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .box1s{
+        position: fixed;
+
+    }
+    .box1s img{
+        height: 100%;
+    }
+    .box1_list{
+        position: relative;
+    }
+    .box1_list li{
+        background: #fff;
+    }
+    .box1_item{
+        height: 400px;
+        background: transparent !important;
+    }
+</style>
+<div class="box1">
+    <div class="box1s"><img src="images/2.jpg"></div>
+    <ul class="box1_list">
+        <li><img src="images/1.jpg"></li>
+        <li><img src="images/1.jpg"></li>
+        <li class="box1_item"></li> <!-- 撑开高度 或者可以直接把元素放到这里也是OK的 --> 
+        <li><img src="images/1.jpg"></li>
+        <li><img src="images/1.jpg"></li>
+    </ul>
+</div>

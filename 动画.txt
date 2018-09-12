@@ -1,0 +1,51 @@
+         transform:rotate(#deg)/scale(x,y 0-2/3/4)/ skew(10deg)/translate(30px 移动);
+                 -ms-transform: ;
+                 -moz-transform: ;
+                 -webkit-transform: ;
+                 -o-transform: ;
+         transition: 过渡效果的 CSS 属性的名称  过渡效果需要时间  速度效果的速度曲线  定义过渡效果何时开始;
+                -moz-transition:; /* Firefox 4 */
+                -webkit-transition:; /* Safari and Chrome */
+                -o-transition:; /* Opera */
+                效果 .box{
+                transition:all 1s  linear 1s;
+		transition: transform 1s ease-in 1s; //用到transform 
+
+                 }
+                  .box:hover{
+                   background: red;
+		   transform: rotate(180deg) scale(.5, .5); // 这里就要对transform 进行设置一下
+                  }
+
+         animation:名称 时间 动画类型linear 是否循环播放infinite;
+         animation: myfirst 5s;
+         -moz-animation: myfirst 5s;	/* Firefox */
+         -webkit-animation: myfirst 5s;	/* Safari 和 Chrome */
+         -o-animation: myfirst 5s;	/* Opera */
+         @keyframes myfirst
+         {
+         from {background: red;}
+         to {background: yellow;}
+	 或者	
+         0%{}
+         50%{}
+         100%{}
+         }
+
+         @-moz-keyframes myfirst /* Firefox */
+         {
+         from {background: red;}
+         to {background: yellow;}
+         }
+
+         @-webkit-keyframes myfirst /* Safari 和 Chrome */
+         {
+         from {background: red;}
+         to {background: yellow;}
+         }
+
+         @-o-keyframes myfirst /* Opera */
+         {
+         from {background: red;}
+         to {background: yellow;}
+         }

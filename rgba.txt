@@ -1,0 +1,9 @@
+   1： <div >	 background: #000;filter: alpha(opacity=60);opacity: 0.6;</div>
+	<p>设置p定位到div上面</p>
+
+
+2：
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#BF000000,endColorstr=#BF000000);
+
+
+background:rgba(0,0,0,0.5); filter: progid:DXImageTransform.Microsoft.gradient(startcolorstr=#7F000000,endcolorstr=#7F000000);

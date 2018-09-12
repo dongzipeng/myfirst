@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="zh-CN">
+<head>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <title>梵贝传媒艺术学校</title>
+    <meta name="keywords" content="" />
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta name="format-detection" content="telephone=no, address=no, email=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+    <script src="http://m.fanbeiyikao.com/skin/new/js/jquery-1.8.3.min.js"></script>
+
+</head>
+<body>
+
+    <style>
+        #zlbg {
+            background-color: rgba(0,0,0,.6);
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 200;
+            padding-top: 36vh;
+        }
+        #zlbg img {
+            width: 100%;
+        }
+    </style>
+    <div class="ka-list">
+        <img src="http://m.yazhouxingti.com/uploadfile/2017/0228/20170228043152751.jpg">
+    </div>
+    <script src="http://m.yazhouxingti.com/statics/js/underscore.js"></script>
+    <script src="http://m.yazhouxingti.com/statics/js/pinchzoom.js"></script>
+    <script>
+        /**
+         * underscore.js 是补jq中没有的方法
+         * pinchzoom.js 是移动端图片放大缩小的
+         * **/
+
+        $(function() {
+            $(".ka-list img").click(function() {
+                $('body').append('<div id="zlbg"><div class="pinch-zoom"><img src="' + $(this).attr('src') + '" width="100%" alt="" /></div></div>');
+                $('div.pinch-zoom').each(function() {
+                    new RTP.PinchZoom($(this), {});
+                });
+                $("#zlbg img").click(function(e) {
+                    e.stopPropagation();
+                });
+                $("#zlbg").click(function() {
+                    $(this).remove();
+                });
+            });
+        });
+    </script>
+
+
+
+</body>
+</html>
