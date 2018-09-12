@@ -1,0 +1,17 @@
+<style></style>
+<div class="">
+
+</div>
+<script src="base64.min.js"></script>
+<script>
+    //1.加密
+    var str = '124中文内容';
+    // var base = new Base64();
+    var result = Base64.encode(str);
+    document.write(result);
+
+    //2.解密
+    var result2 = Base64.decode(result);
+    document.write(result2);
+
+</script>

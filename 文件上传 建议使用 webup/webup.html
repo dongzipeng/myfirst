@@ -1,0 +1,452 @@
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="webuploader.css">
+    <style>
+
+        .webuploader-container {
+            position: relative;
+            float: left;
+        }
+        .webuploader-element-invisible {
+            position: absolute !important;
+            clip: rect(1px 1px 1px 1px);
+            /* IE6, IE7 */
+            clip: rect(1px, 1px, 1px, 1px);
+        }
+        .webuploader-pick {
+            display: inline-block;
+            cursor: pointer;
+            background: #fafafa;
+            padding: 10px 15px;
+            color: #666;
+            text-align: center;
+            border-radius: 3px;
+            overflow: hidden;
+            float: left;
+            width: 128px;
+            height: 88px;
+            position: relative;
+            border: 1px solid #d6dee3;
+            overflow: hidden;
+            padding-top: 60px;
+        }
+        .webuploader-pick-hover {
+            background: #00A3C6;
+            color: #fff;
+        }
+        .webuploader-pick-disable {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+        /*demo样式*/
+        #picker {
+            display: inline-block;
+            line-height: 1.428571429;
+            vertical-align: middle;
+            margin: 0 12px 0 0;
+        }
+        #picker .webuploader-pick {
+            padding: 6px 12px;
+            display: block;
+        }
+        #uploader-demo .thumbnail {
+            width: 150px;
+            height: 150px;
+            overflow: hidden;
+        }
+        #uploader-demo .thumbnail img {
+            width: 100%;
+        }
+        .uploader-list {
+            /*width: 100%;*/
+            overflow: hidden;
+            float: left;
+        }
+        .file-item {
+            float: left;
+            position: relative;
+            margin: 0 20px 20px 0;
+            padding: 5px;
+        }
+        .file-item .error {
+            position: absolute;
+            top: 4px;
+            left: 4px;
+            right: 4px;
+            background: red;
+            color: white;
+            text-align: center;
+            height: 20px;
+            font-size: 14px;
+            line-height: 23px;
+        }
+        .file-item .info {
+            position: absolute;
+            left: 4px;
+            bottom: 4px;
+            right: 4px;
+            height: 20px;
+            line-height: 20px;
+            text-indent: 5px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            font-size: 12px;
+            z-index: 10;
+        }
+        /* 上次成功*/
+        .upload-state-done:after {
+            content: "\f00c";
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            font-size: 32px;
+            position: absolute;
+            bottom: 0;
+            right: 4px;
+            color: #4cae4c;
+            z-index: 99;
+        }
+        /*进度条*/
+        .file-item .progress {
+            position: absolute;
+            right: 4px;
+            bottom: 4px;
+            height: 3px;
+            left: 4px;
+            height: 4px;
+            overflow: hidden;
+            z-index: 15;
+            margin: 0;
+            padding: 0;
+            border-radius: 0;
+            background: transparent;
+        }
+        /*进度条*/
+        .file-item .progress span {
+            display: block;
+            overflow: hidden;
+            width: 0;
+            height: 100%;
+            background: #d14 url(images/progress.png) repeat-x;
+            -webit-transition: width 200ms linear;
+            -moz-transition: width 200ms linear;
+            -o-transition: width 200ms linear;
+            -ms-transition: width 200ms linear;
+            transition: width 200ms linear;
+            -webkit-animation: progressmove 2s linear infinite;
+            -moz-animation: progressmove 2s linear infinite;
+            -o-animation: progressmove 2s linear infinite;
+            -ms-animation: progressmove 2s linear infinite;
+            animation: progressmove 2s linear infinite;
+            -webkit-transform: translateZ(0);
+        }
+        /*取消 删除*/
+        .file-item div.file-panel {
+            position: absolute;
+            height: 0;
+            filter: progid: DXImageTransform.Microsoft.gradient(GradientType=0, startColorstr='#80000000', endColorstr='#80000000')\0;
+            background: rgba( 0, 0, 0, 0.6);
+            width: 100%;
+            bottom: 0;
+            left: 0;
+            overflow: hidden;
+            z-index: 300;
+            color: #fff;
+            line-height: 30px;
+            text-align: right;
+        }
+        .file-item div.file-panel span {
+            width: 24px;
+            height: 24px;
+            display: inline;
+            float: right;
+            text-indent: -9999px;
+            overflow: hidden;
+            background: url(images/icons.png) no-repeat;
+            margin: 5px 1px 1px;
+            cursor: pointer;
+        }
+        .file-item div.file-panel span.rotateLeft {
+            background-position: 0 -24px;
+        }
+        .file-item div.file-panel span.rotateLeft:hover {
+            background-position: 0 0;
+        }
+        .file-item div.file-panel span.rotateRight {
+            background-position: -24px -24px;
+        }
+        .file-item div.file-panel span.rotateRight:hover {
+            background-position: -24px 0;
+        }
+        .file-item div.file-panel span.cancel {
+            background-position: -48px -24px;
+        }
+        .file-item div.file-panel span.cancel:hover {
+            background-position: -48px 0;
+        }
+        @-webkit-keyframes progressmove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 17px 0;
+            }
+        }
+        @-moz-keyframes progressmove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 17px 0;
+            }
+        }
+        @keyframes progressmove {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 17px 0;
+            }
+        }
+        a.travis {
+            position: relative;
+            top: -4px;
+            right: 15px;
+        }
+    </style>
+
+</head>
+<body>
+<div class="webuploader-container">
+
+    <div id="uploader-demo" class="controls">
+        <div class="uploader-list fileList"> </div>
+        <div class="filePicker">添加商品图册
+            <br>最多 5 张
+        </div>
+        <button class="btn" id="btn">上传按按</button>
+    </div>
+</div>
+<script src="jquery.1.8.min.js"></script>
+<script src="webuploader.min.js"></script>
+<script>
+    //  图片webupload 上传
+    $(function() {
+        var $ = jQuery,
+            $list = $('.fileList'),
+            //  点击上传图片的一个state
+            state = 'pending',
+            $filePicker = $('.filePicker'), // 上传按钮
+            $upimgmax = 5, // 支持上传最大个数
+            // 优化retina, 在retina下这个值是2
+            ratio = window.devicePixelRatio || 1,
+            // 缩略图大小
+            thumbnailWidth = 100 * ratio,
+            thumbnailHeight = 100 * ratio,
+            // 初始化Web Uploader
+            uploader = WebUploader.create({
+                // 自动上传。
+                auto: false,
+                // swf文件路径
+                swf: 'webuploader/Uploader.swf',
+                // 文件接收服务端。
+                server:"",  //  这里是图片上传地址
+                // 选择文件的按钮。可选。
+                // 内部根据当前运行是创建，可能是input元素，也可能是flash
+                pick: {
+                    id: $filePicker,
+                    // multiple: false
+                },
+                duplicate: true,
+                fileSingleSizeLimit: 5242880, //  单个文件大小
+                fileNumLimit: $upimgmax, // 限制上传个数
+                accept: {
+                    title: 'Images',
+                    extensions: 'jpg,jpeg,png',
+                    mimeTypes: 'image/jpg,image/jpeg,image/png' //修改这行
+                },
+                thumb: {
+                    width: 110,
+                    height: 110,
+                    // 图片质量，只有type为`image/jpeg`的时候才有效。
+                    quality: 70,
+                    // 是否允许放大，如果想要生成小图的时候不失真，此选项应该设置为false.
+                    allowMagnify: true,
+                    // 是否允许裁剪。
+                    crop: true,
+                    // 为空的话则保留原有图片格式。
+                    // 否则强制转换成指定的类型。
+                    type: 'image/jpeg'
+                }
+            });
+        // 当有文件添加进来的时候
+        uploader.on('fileQueued', function(file) {
+            var $li = $(
+                '<div id="' + file.id + '" class="file-item thumbnail">' +
+                '<img>' +
+                // '<div class="info">' + file.name + '</div>' +
+                '<div class = "file-panel" style = "height: 30px;" > 删除 ' +
+                '<span class = "cancel delimgbtns" title="删除"></span></div>' +
+                '</div>'
+                ),
+                $img = $li.find('img');
+            $list.append($li);
+            removefiles(file); // 文件删除
+            // 创建缩略图
+            uploader.makeThumb(file, function(error, src) {
+                if (error) {
+                    $img.replaceWith('<span>不能预览</span>');
+                    return;
+                }
+                $img.attr('src', src);
+            }, thumbnailWidth, thumbnailHeight);
+            var uploadfilesNum = uploader.getStats().queueNum; //  共选中几个图片
+            // 最多支持 5张
+            if ($('.file-item').length >= $upimgmax) {
+                $filePicker.hide();
+                if ($('.file-item').length >= ($upimgmax + 1)) {
+                    // 中断 取消 大于  5张图片的对象
+                    uploader.removeFile(file, true);
+                    $('.file-item').last().remove();
+                }
+            } else {
+                $filePicker.show();
+            }
+        });
+        // 文件上传过程中创建进度条实时显示。
+        uploader.on('uploadProgress', function(file, percentage) {
+            var $li = $('#' + file.id),
+                $percent = $li.find('.progress span');
+            // 避免重复创建
+            if (!$percent.length) {
+                $percent = $('<p class="progress"><span></span></p>').appendTo($li).find('span');
+            }
+            $percent.css('width', percentage * 100 + '%');
+        });
+        // 文件上传成功，给item添加成功class, 用样式标记上传成功。
+        uploader.on('uploadSuccess', function(file, response) {
+            var $li = $('#' + file.id),
+                $img = $li.find('img'),
+                $fileUrl = response.data[0].url, // 图片上传地址
+                $filename = file.name, // 上传文件名称
+                $filesize = (file.size / 1024).toFixed(2); // 上传文件尺寸大小 保留2位
+            $li.addClass('upload-state-done');
+            // console.log(file);
+            console.log(response);
+            console.log('图片地址:' + $fileUrl);
+            $img.attr('src', $fileUrl);
+            removefiles(file); // 删除文件
+            removehttpfiles();
+            // 传值赋值
+            // 商品详细图片 位置
+            // 这里自己赋值 传值
+        });
+
+        // 文件上传失败，显示上传出错。
+        uploader.on('uploadError', function(file) {
+            var $li = $('#' + file.id),
+                $error = $li.find('div.error');
+            // 避免重复创建
+            if (!$error.length) {
+                $error = $('<div class="error"></div>').appendTo($li);
+            }
+            $error.text('上传失败');
+        });
+        // 完成上传完了，成功或者失败，先删除进度条。
+        uploader.on('uploadComplete', function(file) {
+            $('#' + file.id).find('.progress').remove();
+            console.log(file);
+            // 获取文件统计信息。返回一个包含一下信息的对象。
+            /*successNum 上传成功的文件数
+            progressNum 上传中的文件数
+            cancelNum 被删除的文件数
+            invalidNum 无效的文件数
+            uploadFailNum 上传失败的文件数
+            queueNum 还在队列中的文件数
+            interruptNum 被暂停的文件数
+            */
+            // console.log(uploader.getStats().uploadFailNum);
+        });
+        uploader.on('error', function(handler) {
+            if (handler == "Q_EXCEED_NUM_LIMIT") {
+                layer.msg("最多只能上传 " + $upimgmax + "张图片");
+            }
+        });
+        // 删除按钮事件
+        function removefiles(file) {
+            // 删除本条数据
+            // $('.delimgbtns').each(function(index, el) {
+            $('.delimgbtns').click(function() {
+                // 中断 取消 传图
+                uploader.removeFile(file, true);
+                var spthisdiv = $(this).parent();
+                spthisdiv.parent('.file-item').remove();
+                $filePicker.show(); // 上传按钮显示
+            });
+            // });
+        }
+        // 删除服务器文件
+        function removehttpfiles() {
+            // 删除本条数据
+            // $('.delimgbtns').each(function(index, el) {
+            $('.delimgbtns').click(function() {
+                // event.preventDefault();
+                var spthisdiv = $(this).parent();
+                // 如果上传成功才执行
+                var thisimgsrc = spthisdiv.siblings('img').attr('src');
+                var geturl = "attach/deleteFlowFile";
+                $.axpost(
+                    geturl, {
+                        url: thisimgsrc,
+                    },
+                    //请求成功时处理
+                    function(data) {
+                        layer.msg('删除成功');
+                    });
+            });
+            // });
+        }
+
+
+
+        //点击上传按钮 上传的事件的应用
+        uploader.on( 'all', function( type ) {
+            if ( type === 'startUpload' ) {
+                state = 'uploading';
+            } else if ( type === 'stopUpload' ) {
+                state = 'paused';
+            } else if ( type === 'uploadFinished' ) {
+                state = 'done';
+            }
+
+            if ( state === 'uploading' ) {
+                $("#btn").text('上传图片');
+            } else {
+                $("#btn").text('上传图片');
+            }
+        });
+
+        $("#btn").on( 'click', function() {
+            if ( state === 'uploading' ) {
+                uploader.stop();
+            } else {
+                uploader.upload();
+            }
+        });
+
+    });
+</script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<style>
+    .box1 li img{
+        width: 30px;
+        height: 30px;
+    }
+    .m-sidebar {position: fixed;top: 0;right: 0;background: #000;z-index: 2000;	width: 35px;height: 100%;font-size: 12px;color: #fff;}
+    .m-sidebar .cart {color: #fff;text-align: center;line-height: 20px;padding: 200px 0 0 0px;top:100px;}
+    .m-sidebar .cart span {	display: block;	width: 20px;margin: 0 auto;}
+    .m-sidebar .cart i {width: 35px;height: 35px;display: block;}
+    .flyer-img {display: block;width: 50px;height: 50px;border-radius: 50px;position: fixed;z-index: 999999;}
+
+</style>
+<div class="box">
+    <ul class="box1">
+        <li><img src="images/1.jpg"><a href="javascript:void(0);" class="button orange addcart">加入购物车</a>  </li>
+        <li><img src="images/2.jpg"><a href="javascript:void(0);" class="button orange addcart">加入购物车</a>  </li>
+    </ul>
+    <div class="m-sidebar">
+        <div class="cart">
+            <i id="end"></i>
+            <span>购物车</span>
+        </div>
+    </div>
+</div>
+<script src="jquery.1.8.min.js"></script>
+<script src="jquery.fly.min.js"></script>
+
+<!--[if lte IE 10 ]>
+<script src="requestAnimationFrame.js"></script>
+<![endif]-->
+
+
+<script>
+
+    $(".addcart").click(function(event) {
+        var offset = $('#end').offset(); //
+        var img = $(this).parent().children('img').attr('src'); //获取当前点击图片链接
+        var flyer = $('<img class="flyer-img" src="' + img + '">'); //抛物体对象
+        flyer.fly({
+            start: {
+                left: event.pageX,//抛物体起点横坐标
+                top: event.pageY, //抛物体起点纵坐标
+            },
+            end: {
+                left: offset.left + 10,//抛物体终点横坐标
+                top: offset.top + 10, //抛物体终点纵坐标
+                width: 20,
+                height: 20
+            },
+            autoPlay: true, //是否直接运动,默认true
+            speed: 1.1, //越大越快，默认1.2 运动的时间
+            vertex_Rtop:100, //运动轨迹最高点top值，默认20
+            onEnd: function() {  // 结束回调
+                $("#tip").show().animate({width: '200px'},300).fadeOut(500);////成功加入购物车动画效果
+                this.destory(); //销毁抛物体 去掉这个就不销毁这个最后的图片
+            }
+        });
+    })
+
+
+    /*
+    *
+    *
+    * */
+
+</script>

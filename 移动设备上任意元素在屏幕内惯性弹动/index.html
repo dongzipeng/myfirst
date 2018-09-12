@@ -1,0 +1,42 @@
+<style>
+    .ball {
+        position: fixed;
+        line-height: 2.75rem;
+        width: 2.75rem;
+        height: 2.75rem;
+        padding: .5rem;
+        text-align: center;
+        border-radius: 99px;
+        color: #fff;
+        /*
+        有时候希望元素不是紧靠边缘而是留有间隙，可以使用透明边框，或者标签嵌套使用padding等CSS属性控制。
+        */
+        border: 1rem solid transparent;
+        background-color: #ed424b;
+        background-clip: padding-box;
+        text-decoration: none;
+        top: 2em;
+    }
+</style>
+<div class="box">
+    <a href="javascript:" id="ball" class="ball">拖我</a>
+</div>
+<!--<script src="jquery.1.8.min.js"></script>-->
+<!--
+  原生JavaScript编写，适用于触屏设备。
+
+  算法：有点没有明白 ！！！
+
+-->
+
+<script src="Inertia.js"></script>
+
+<script>
+    var ball = document.getElementById("ball");
+    new Inertia(ball,function () {
+        edge:true // 布尔值，表示是否吸附边缘，默认为true，也就是吸附。
+    });
+
+  
+
+</script>
